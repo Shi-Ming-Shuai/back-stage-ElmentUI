@@ -1,37 +1,32 @@
 
 import Vuex from 'vuex';
 import Vue from 'vue';
+
+// 导入数据持久化
+import PersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    menuList: [
-      {
-        id: 1,
-        icon: "el-icon-setting",
-        status: true,
-        type: "目录",
-        name: "系统设置",
-        address: "",
-      },
-      {
-        id: 2,
-        icon: "",
-        type: "菜单",
-        status: false,
-        name: "菜单管理",
-        address: "/menu",
-      },
-      {
-        id: 3,
-        icon: "",
-        type: "菜单",
-        status: true,
-        name: "用户管理",
-        address: "/user",
-      }
-    ]
-  }
+    userInfo: {},
+    menuList: []
+  },
+  mutations: {
+    //登录/退出登录 修改用户信息
+    changeUser(state, payload) {
+      state.userInfo = payload
+    }
+  },
+  actions: {
+    // 修改用户信息
+    changeUser({ commit }, payload) {
+      commit("changeUser", payload)
+    }
+  },
+  // 使用插件 数据持久化 放入Session Storeage中
+  plugins: [PersistedState({
+    storage: window.sessionStorage
+  })]
 })
 
 // 将仓库导出  main.js 引用 挂载

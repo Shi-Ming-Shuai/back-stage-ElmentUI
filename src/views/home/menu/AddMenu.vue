@@ -121,8 +121,17 @@ export default {
           }
           // 如果添加成功 则跳转页面
           if (res.code == 200) {
+            this.$message({
+              type: "success",
+              message: "添加成功!",
+            });
             this.$router.push({
               path: "/menu",
+            });
+          } else {
+            this.$message({
+              type: "info",
+              message: res.msg,
             });
           }
         } else {

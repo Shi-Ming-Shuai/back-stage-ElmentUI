@@ -1,7 +1,15 @@
 <template>
   <div>
     <el-container class="home">
-      <el-header>头部</el-header>
+      <el-header>
+        <h4>小U商城后台管理系统</h4>
+        <p>
+          <!-- 用户默认头像 -->
+          <img class="img" src="/static/user.jpg"  alt="">
+          {{ $store.state.userInfo.username }}
+          <a href="javascript:void(0)" @click="logOut">退出</a>
+        </p>
+      </el-header>
       <el-container>
         <el-aside>
           <!-- 侧边导航菜单 -->
@@ -18,7 +26,7 @@
 </template>
 
 <script>
-import AsideMenu from "./childCpn/AsideMenu";
+import AsideMenu from "./AsideMenu";
 
 export default {
   name: "",
@@ -26,6 +34,15 @@ export default {
     return {};
   },
   components: { AsideMenu },
+  methods: {
+    // 退出登录  跳转登录页
+    logOut() {
+      this.$router.push("/login");
+      setTimeout(() => {
+        this.$store.dispatch("changeUser", null);
+      }, 500);
+    },
+  },
 };
 </script>
 
@@ -34,5 +51,23 @@ export default {
   width 100vw
   height 100vh
 .el-header
-  background-color pink
+  display flex
+  justify-content space-between
+  align-items center
+  color #fff
+  background-color #222d32
+  p
+    text-align right
+    font-size 12px
+    // 用户默认头像
+    .img 
+      margin-right 15px
+      width 39px
+      height 39px
+      border-radius 50%
+      border 2px solid #cccccc
+      vertical-align middle
+    a
+      text-decoration none
+      color #fff
 </style>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import store from "../store"
 //导出自己封装的方法
 
 export function request(config) {
@@ -7,7 +7,12 @@ export function request(config) {
   const instance = axios.create({
     // http://localhost:3000/api
     baseURL: '/api',
-    timeout: 5000
+    timeout: 5000,
+    // 设置请求头，附加管理员 的用户信息  token
+    headers: {
+      // 如果store.state.userInfo 存在（说明登录了） 那么配置请求头token   如果userInfo不存在 那么提交请求头的信息为 空 ''
+      Authorization: store.state.userInfo ? store.state.userInfo.token : ''
+    }
   })
   //axios拦截器
   //1.请求拦截

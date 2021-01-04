@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
 };
 </script>
 
@@ -14,5 +14,10 @@ export default {
 * {
   margin: 0;
   padding: 0;
+}
+/* 全局样式  表格内容居中 */
+.el-table--enable-row-transition .el-table__body td,
+.el-table--border td, .el-table--border th {
+  text-align: center;
 }
 </style>

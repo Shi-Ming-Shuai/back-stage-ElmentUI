@@ -19,7 +19,12 @@ module.exports = {
         // pathRewrite: {
         //   '^/apiw': ''
         // }
-      }
+      },
+      // 图片加载路径
+      "/uploads": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
     },
 
     // Various Dev Server settings
