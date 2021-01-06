@@ -104,6 +104,17 @@ export default {
       // 开始/结束时间戳 放到数组  用于列表展示
       this.time.push(this.newData.begintime);
       this.time.push(this.newData.endtime);
+      // 二级分类随之改变
+      await this.oneCateCange(this.newData.first_cateid, false); //二级分类 随之改变   (第二个参数,一级分类发生改变是否情况二级分类)  不需要清空（因为是编辑页面）
+      let ThreeList = await GoodsList({
+        fid: this.newData.first_cateid,
+        sid: this.newData.second_cateid,
+      });
+      if (ThreeList) {
+        this.goodsCates = ThreeList.list;
+      }
+      // 转换为 数值类型
+      this.newData.goodsid = Number(this.newData.goodsid);
     } else {
       this.currentPage = "添加";
     }
@@ -114,7 +125,7 @@ export default {
       currentPage: "添加",
       firstCates: [], //一级分类 下拉菜单（用于页面展示）
       secondCates: [], //二级分类 下拉菜单（用于页面展示）
-      goodsCates: [], //二级分类 下拉菜单（用于页面展示）
+      goodsCates: [], //三级分类 下拉菜单（用于页面展示）
       time: [], //日期时间选择器 数组 起始时间 -- 结束时间
       oneId: "", //一级分类 id
       twoId: "", //二级分类 id

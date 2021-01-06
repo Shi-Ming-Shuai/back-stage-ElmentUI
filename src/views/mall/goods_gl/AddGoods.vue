@@ -186,8 +186,8 @@ export default {
         ? this.newData.specsattr.split(",")
         : []; //将商品规格属性 转换过来
       this.editor.txt.html(this.newData.description); // 富文本框内容展示
-      await this.oneCateCange(this.newData.first_cateid,false); //二级分类 随之改变   (第二个参数,一级分类发生改变是否情况二级分类)  不需要清空（因为是编辑页面）
-      await this.oneSpecsCange(this.newData.specsid,false); //二级分类  商品规格属性
+      await this.oneCateCange(this.newData.first_cateid, false); //二级分类 随之改变   (第二个参数,一级分类发生改变是否情况二级分类)  不需要清空（因为是编辑页面）
+      await this.oneSpecsCange(this.newData.specsid, false); //二级分类  商品规格属性
     } else {
       this.currentPage = "添加";
     }
@@ -270,8 +270,15 @@ export default {
         if (valid) {
           //加工 处理表单提交
           this._handleFormData();
+          let res;
           // 添加商品  post提交 data 为 this.formData
-          let res = await GoodsAdd(this.formData);
+          if (this.currentPage == "添加") {
+            res = await GoodsAdd(this.formData);
+          } else {
+            //编辑商品
+            this.formData.append("id", this.$route.params.id);
+            res = await GoodsEdit(this.formData);
+          }
           // 提示用户添加状态 ， 如果成功 跳转页面
           if (res.code == 200) {
             this.$message({
@@ -299,6 +306,7 @@ export default {
     // 删除图片
     handleRemove() {
       this.fileList = [];
+      this.newData.img = "";
     },
     // 查看图片大图
     handlePictureCardPreview(file) {

@@ -4,8 +4,9 @@
       <el-header>
         <h4>小U商城后台管理系统</h4>
         <p>
+          <span style="float: left">北京时间&nbsp;:&nbsp;{{ nowTime }}</span>
           <!-- 用户默认头像 -->
-          <img class="img" src="/static/user.jpg"  alt="">
+          <img class="img" src="/static/user.jpg" alt="" />
           {{ $store.state.userInfo.username }}
           <a href="javascript:void(0)" @click="logOut">退出</a>
         </p>
@@ -29,9 +30,18 @@
 import AsideMenu from "./AsideMenu";
 
 export default {
+  created() {
+    // 实例创建之前 启动定时器 时间改变
+    setInterval(() => {
+      this.nowTime = new Date().toLocaleTimeString();
+    }, 1000);
+  },
   name: "",
   data() {
-    return {};
+    return {
+      // 当前时间
+      nowTime: "",
+    };
   },
   components: { AsideMenu },
   methods: {
@@ -60,8 +70,8 @@ export default {
     text-align right
     font-size 12px
     // 用户默认头像
-    .img 
-      margin-right 15px
+    .img
+      margin 0 15px
       width 39px
       height 39px
       border-radius 50%

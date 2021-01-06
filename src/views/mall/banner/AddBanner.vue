@@ -138,6 +138,8 @@ export default {
     // 删除图片
     handleRemove() {
       this.fileList = [];
+      this.newData.img = "";
+
     },
     // 向数据库中 添加数据
     addBanner() {

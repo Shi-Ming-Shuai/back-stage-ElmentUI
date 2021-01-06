@@ -148,9 +148,10 @@ export default {
       this.dialogVisible = true;
       this.dialogImageUrl = file.url;
     },
-    // 删除图片
+    // 删除图片, newData中图片信息清空
     handleRemove() {
       this.fileList = [];
+      this.newData.img = "";
     },
     // 向数据库中 添加数据
     addCategory() {
